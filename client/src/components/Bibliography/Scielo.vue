@@ -1,5 +1,7 @@
 <template>
   <div class="mt-3">
+    <v-chip class="ma-2" color="primary">Inglés</v-chip>
+    <v-chip class="ma-2" color="primary">Español</v-chip>
     <v-progress-linear v-if="!isDataReady" class="my-5" color="primary" buffer-value="0" stream></v-progress-linear>
     <v-simple-table class="table-header">
       <template v-slot:default>

@@ -7,7 +7,7 @@ import store from './store'
 // Importing the global css file
 import "@/assets/css/customStyles.css"
 // GLobal components
-import './views/globalComponents/globalComponents';
+// import './views/globalComponents/globalComponents';
 
 Vue.config.productionTip = false
 

@@ -33,9 +33,9 @@
         <v-tab-item eager>
           <scielo :query="query" ref="scielo"></scielo>
         </v-tab-item>
-        <v-tab-item>
+        <v-tab-item eager>
           <v-card flat>
-            <v-card-text>aea3</v-card-text>
+            <ieee :query="query" ref="ieee"></ieee>
           </v-card>
         </v-tab-item>
         <v-tab-item eager>
@@ -50,16 +50,18 @@
 import Scopus from "@/components/Bibliography/Scopus.vue";
 import Renati from "@/components/Bibliography/Renati.vue";
 import Scielo from "@/components/Bibliography/Scielo.vue";
+import Ieee from "@/components/Bibliography/IEEEExplore.vue";
 export default {
   components: {
     Scopus,
     Renati,
-    Scielo
+    Scielo,
+    Ieee
   },
   data() {
     return {
       tab: null,
-      items: ["Scopus/ScienceDirect", "Scielo", "Ebsco", "Renati"],
+      items: ["Scopus/ScienceDirect", "Scielo", "IEEE", "Renati"],
       query: "",
       researches: []
     };
@@ -69,6 +71,7 @@ export default {
       this.$refs.scopus.getResearches();
       this.$refs.scielo ? this.$refs.scielo.getResearches() : null;
       this.$refs.renati ? this.$refs.renati.getResearches() : null;
+      this.$refs.ieee ? this.$refs.ieee.getResearches() : null;
     },
     onTabChange(i) {
       console.log("se cambio el tab: ", i);
