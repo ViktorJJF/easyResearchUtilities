@@ -1,0 +1,92 @@
+<template>
+  <v-container fluid>
+    <v-card class="pa-3">
+      <h1>Búsqueda de información</h1>
+      <v-card-title class="text-center justify-center py-6">
+        <v-row align="center" justify="center" dense>
+          <v-col cols="12" sm="9">
+            <v-text-field
+              v-model="query"
+              dense
+              hide-details
+              placeholder="Ingrese las palabras clave"
+              outlined
+              @keydown.enter="getResearches(query)"
+            ></v-text-field>
+          </v-col>
+          <v-col cols="12" sm="3">
+            <v-btn color="primary" @click="getResearches(query)">Buscar</v-btn>
+          </v-col>
+        </v-row>
+      </v-card-title>
+
+      <v-tabs v-model="tab" background-color="transparent" grow @change="onTabChange">
+        <v-tab v-for="item in items" :key="item">
+          <b>{{ item }}</b>
+        </v-tab>
+      </v-tabs>
+
+      <v-tabs-items v-model="tab">
+        <v-tab-item eager>
+          <scopus :query="query" ref="scopus"></scopus>
+        </v-tab-item>
+        <v-tab-item eager>
+          <scielo :query="query" ref="scielo"></scielo>
+        </v-tab-item>
+        <v-tab-item>
+          <v-card flat>
+            <v-card-text>aea3</v-card-text>
+          </v-card>
+        </v-tab-item>
+        <v-tab-item eager>
+          <renati :query="query" ref="renati"></renati>
+        </v-tab-item>
+      </v-tabs-items>
+    </v-card>
+  </v-container>
+</template>
+
+<script>
+import Scopus from "@/components/Bibliography/Scopus.vue";
+import Renati from "@/components/Bibliography/Renati.vue";
+import Scielo from "@/components/Bibliography/Scielo.vue";
+export default {
+  components: {
+    Scopus,
+    Renati,
+    Scielo
+  },
+  data() {
+    return {
+      tab: null,
+      items: ["Scopus/ScienceDirect", "Scielo", "Ebsco", "Renati"],
+      query: "",
+      researches: []
+    };
+  },
+  methods: {
+    getResearches() {
+      this.$refs.scopus.getResearches();
+      this.$refs.scielo ? this.$refs.scielo.getResearches() : null;
+      this.$refs.renati ? this.$refs.renati.getResearches() : null;
+    },
+    onTabChange(i) {
+      console.log("se cambio el tab: ", i);
+    }
+  }
+};
+</script>
+
+<style lang="scss" scoped>
+// $base-color: #122d4a;
+.table-header {
+  th {
+    font-size: 21px;
+    // background-color: $base-color;
+    font-weight: bold;
+    span {
+      color: black;
+    }
+  }
+}
+</style>
