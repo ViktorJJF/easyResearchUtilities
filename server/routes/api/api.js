@@ -2,10 +2,8 @@ const express = require("express");
 const router = express.Router();
 const axios = require("axios");
 const cheerio = require("cheerio");
-const puppeteer = require('puppeteer');
-const {
-  timeout
-} = require("../../utils/utils")
+const puppeteer = require("puppeteer");
+const { timeout } = require("../../utils/utils");
 //models
 const Goal = require("../../models/goals.js");
 
@@ -39,7 +37,7 @@ router.get("/scopus", (req, res) => {
       });
       res.status(200).json({
         ok: true,
-        researches
+        researches,
       });
     })
     .catch((err) => {
@@ -62,7 +60,8 @@ router.get("/renati", (req, res) => {
           title: $(".field-title>a", e).text(),
           abstract: "",
           doi: "",
-          link: "http://renati.sunedu.gob.pe/" +
+          link:
+            "http://renati.sunedu.gob.pe/" +
             $(".field-title a", e).attr("href"),
           date: $(".field-date", e).text(),
         };
@@ -70,7 +69,7 @@ router.get("/renati", (req, res) => {
       });
       res.status(200).json({
         ok: true,
-        researches
+        researches,
       });
     })
     .catch((err) => {
@@ -102,7 +101,7 @@ router.get("/scielo", (req, res) => {
       });
       res.status(200).json({
         ok: true,
-        researches
+        researches,
       });
     })
     .catch((err) => {
@@ -112,11 +111,15 @@ router.get("/scielo", (req, res) => {
 router.get("/ieee", async (req, res) => {
   let researches = [];
   let query = encodeURI(req.query.query);
-  let url = `https://ieeexplore.ieee.org/search/searchresult.jsp?queryText=${query}&highlight=true&returnFacets=ALL&returnType=SEARCH&sortType=newest`;
+  let url = `https://ieeexplore.ieee.org/search/searchresult.jsp?queryText=${query}&highlight=true&returnFacets=ALL&returnType=SEARCH`;
   //begin puppeteer
   try {
     var browser = await puppeteer.launch({
-      headless: false
+      args: [
+        "--no-sandbox",
+        "--disable-setuid-sandbox",
+        "--disable-dev-shm-usage",
+      ],
     });
     const page = await browser.newPage();
     //prevent css and images
@@ -135,7 +138,7 @@ router.get("/ieee", async (req, res) => {
     researches = await page.evaluate(() => {
       let localResearches = [];
       let researchesNodes = document.querySelectorAll(".List-results-items");
-      researchesNodes.forEach(researchNode => {
+      researchesNodes.forEach((researchNode) => {
         let research = {
           title: researchNode.querySelector("a[_ngcontent-c23]").innerText,
           abstract: "",
@@ -155,7 +158,7 @@ router.get("/ieee", async (req, res) => {
   }
   res.status(200).json({
     ok: true,
-    researches
+    researches,
   });
 });
 router.post("/goals", goal_controller.goal_create);
