@@ -1,15 +1,28 @@
 <template>
   <v-app id="keep">
     <v-app-bar dense app clipped-left color="primary" elevation="0">
+      <v-avatar>
+        <img src="/Assets/Images/tesisParaInteligentesSinFondo.png" alt="logo" />
+      </v-avatar>
       <span class="title ml-3 mr-5">
         <v-btn color="white" text to="/">Investigación para inteligentes</v-btn>
       </span>
-      <v-btn color="white" text :to="{name:'bibliography'}">Bibliografía</v-btn>
+
+      <router-link :to="{name:'bibliography'}" class="white--text links">Fuentes de información</router-link>
+      <router-link to="/" class="white--text links">Hola</router-link>
       <v-spacer></v-spacer>
     </v-app-bar>
-    <v-content>
+    <v-content class="mb-5">
       <router-view></router-view>
     </v-content>
+    <v-footer dark padless fixed>
+      <v-card class="flex" flat tile>
+        <v-card-text class="py-2 white--text text-center">
+          {{ new Date().getFullYear() }} —
+          <strong>Jimenez Company ©</strong>
+        </v-card-text>
+      </v-card>
+    </v-footer>
   </v-app>
 </template>
 

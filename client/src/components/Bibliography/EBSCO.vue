@@ -58,13 +58,13 @@ export default {
     };
   },
   mounted() {
-    console.log("se monto ebsco");
+    console.log("se monto renati");
   },
   methods: {
     getResearches() {
       this.isDataReady = false;
       axios
-        .get("/api/ieee", { params: { query: this.query } })
+        .post("/api/ebsco", { query: this.query })
         .then(res => {
           console.log("llegaron los datos");
           this.isDataReady = true;
