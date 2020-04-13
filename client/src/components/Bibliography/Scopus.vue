@@ -29,7 +29,7 @@
             <td>{{ research.title }}</td>
             <td>{{ research.date }}</td>
             <td>
-              <a :href="'https://sci-hub.tw/'+research.link" target="_blank">Ver</a>
+              <a :href="'https://sci-hub.tw/'+research.doi" target="_blank">Ver</a>
             </td>
             <td>
               <a :href="research.link" target="_blank">{{ research.link }}</a>

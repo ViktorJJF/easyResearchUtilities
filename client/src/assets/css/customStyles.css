@@ -19,4 +19,16 @@
     max-width: 970px;
 }
 
+.links {
+    float: left;
+    text-align: center;
+    margin: 14px 16px;
+    text-decoration: none;
+    font-size: 17px;
+}
+
+.links:hover {
+    border-bottom: 3px solid #ffffff;
+}
+
 /* tables */
